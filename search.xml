@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+    
+    <entry>
+      <title><![CDATA[Hello World]]></title>
+      <url>/2018/01/16/hello-world/</url>
+      <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+]]></content>
+      
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Nginx源码安装]]></title>
+      <url>/2017/10/26/Nginx_1/</url>
+      <content type="html"><![CDATA[<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><blockquote>
+<p>Nginx可以使用各平台的默认包来安装，本文是介绍使用源码编译安装，包括具体的编译参数信息。</p>
+<blockquote>
+<p>正式开始前，编译环境gcc g++ 开发库之类的需要提前装好，装好的请略过。<br>centos平台编译环境使用如下指令</p>
+</blockquote>
+</blockquote>
+<h3 id="安装make"><a href="#安装make" class="headerlink" title="安装make"></a>安装make</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install gcc automake autoconf libtool make</span><br></pre></td></tr></table></figure>
+<h3 id="安装g"><a href="#安装g" class="headerlink" title="安装g++"></a>安装g++</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install gcc gcc-c++</span><br></pre></td></tr></table></figure>
+<h2 id="正式开始安装"><a href="#正式开始安装" class="headerlink" title="正式开始安装"></a>正式开始安装</h2><p>一般我们都需要先装pcre, zlib，前者为了重写rewrite，后者为了gzip压缩。</p>
+<h3 id="1-选择源码下载目录"><a href="#1-选择源码下载目录" class="headerlink" title="1.选择源码下载目录"></a>1.选择源码下载目录</h3><p>可以是任何目录，本文选定的是/usr/local/src<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /usr/<span class="built_in">local</span>/src</span><br></pre></td></tr></table></figure></p>
+<h3 id="2-安装PCRE"><a href="#2-安装PCRE" class="headerlink" title="2.安装PCRE"></a>2.安装PCRE</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /usr/<span class="built_in">local</span>/src</span><br><span class="line">wget ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-8.38.tar.gz </span><br><span class="line">tar -zxvf pcre-8.38.tar.gz</span><br><span class="line"><span class="built_in">cd</span> pcre-8.38</span><br><span class="line">./configure</span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
+<h3 id="3-安装zlib"><a href="#3-安装zlib" class="headerlink" title="3.安装zlib"></a>3.安装zlib</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /usr/<span class="built_in">local</span>/src</span><br><span class="line"></span><br><span class="line">wget http://zlib.net/zlib-1.2.11.tar.gz</span><br><span class="line">tar -zxvf zlib-1.2.11.tar.gz</span><br><span class="line"><span class="built_in">cd</span> zlib-1.2.11</span><br><span class="line">./configure</span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
+<h3 id="4-安装ssl"><a href="#4-安装ssl" class="headerlink" title="4.安装ssl"></a>4.安装ssl</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /usr/<span class="built_in">local</span>/src</span><br><span class="line">wget https://www.openssl.org/<span class="built_in">source</span>/openssl-1.0.2l.tar.gz</span><br><span class="line">tar -zxvf openssl-1.0.2l.tar.gz</span><br></pre></td></tr></table></figure>
+<h3 id="5-安装nginx"><a href="#5-安装nginx" class="headerlink" title="5.安装nginx"></a>5.安装nginx</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /usr/<span class="built_in">local</span>/src</span><br><span class="line">wget http://nginx.org/download/nginx-1.4.2.tar.gz</span><br><span class="line">tar -zxvf nginx-1.12.2.tar.gz</span><br><span class="line"><span class="built_in">cd</span> nginx-1.12.2</span><br><span class="line">./configure --sbin-path=/usr/<span class="built_in">local</span>/nginx/nginx --conf-path=/usr/<span class="built_in">local</span>/nginx/nginx.conf --pid-path=/usr/<span class="built_in">local</span>/nginx/nginx.pid  --with-http_ssl_module --with-pcre=/usr/<span class="built_in">local</span>/src/pcre-8.39 --with-zlib=/usr/<span class="built_in">local</span>/src/zlib-1.2.11 --with-openssl=/usr/<span class="built_in">local</span>/src/openssl-1.0.2l</span><br><span class="line">make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
+<p>至此，不出意外的话应该正常安装。输入下面命令就可以启动<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/<span class="built_in">local</span>/nginx/nginx</span><br></pre></td></tr></table></figure></p>
+<p>浏览器访问该机器ip地址应该能出现nginx欢迎页面。</p>
+<ul>
+<li>注意下载上面源码包时可能有的旧版本下载不到了，访问对应地址获取正确的源码下载url</li>
+</ul>
+<p><a href="http://www.nginx.cn/install" target="_blank" rel="noopener">原文地址</a></p>
+]]></content>
+      
+        <categories>
+            
+            <category> Linux服务器 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Nginx Linux centOS </tag>
+            
+        </tags>
+        
+    </entry>
+    
+  
+  
+</search>
